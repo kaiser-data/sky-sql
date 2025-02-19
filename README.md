@@ -25,7 +25,8 @@ Before running the application, ensure you have the following installed:
 
 - Python 3.7 or higher
 - SQLite database with flight data (e.g., `flights.sqlite3`)
-- Required Python packages  (see requirements.txt)
+- Required Python packages  (see requirements.txt
+
 
 ---
 
