@@ -1,0 +1,29 @@
+# Data manipulation and analysis
+pandas>=1.5.3
+geopandas>=0.12.2
+
+# Visualization libraries
+matplotlib>=3.7.1
+seaborn>=0.12.2
+
+# Database interaction
+SQLAlchemy>=1.4.46
+sqlalchemy-utils>=0.38.3
+
+# Geospatial libraries
+shapely>=2.0.1
+fiona>=1.9.1
+pyproj>=3.4.1
+
+# Web framework (if using Flask)
+flask>=2.3.2
+flask-cors>=3.0.10
+
+# Testing and development tools
+pytest>=7.4.0
+flake8>=6.1.0
+black>=23.3.0
+
+# Deployment tools
+gunicorn>=20.1.0
+waitress>=2.1.2

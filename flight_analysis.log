@@ -1,0 +1,672 @@
+2025-02-18 23:17:21,390 - ERROR - Application error: 'seaborn' is not a valid package style, path of style file, URL of style file, or library style name (library styles are listed in `style.available`)
+2025-02-18 23:18:53,445 - ERROR - Database connection error: (sqlalchemy.exc.InvalidRequestError) A value is required for bind parameter '00'
+[SQL: 
+            WITH time_intervals AS (
+                SELECT 
+                    CASE
+                        WHEN CAST(SUBSTR(SCHEDULED_DEPARTURE, 12, 2) AS INTEGER) * 60 + 
+                             CAST(SUBSTR(SCHEDULED_DEPARTURE, 15, 2) AS INTEGER) <= 30 
+                        THEN SUBSTR(SCHEDULED_DEPARTURE, 12, 2) || '?-' || 
+                             SUBSTR(SCHEDULED_DEPARTURE, 12, 2) || '?'
+                        ELSE SUBSTR(SCHEDULED_DEPARTURE, 12, 2) || '?-' || 
+                             CASE 
+                                 WHEN CAST(SUBSTR(SCHEDULED_DEPARTURE, 12, 2) AS INTEGER) = 23 
+                                 THEN '00:00' 
+                                 ELSE printf("%02d", CAST(SUBSTR(SCHEDULED_DEPARTURE, 12, 2) AS INTEGER) + 1) || '?'
+                             END
+                    END AS Interval,
+                    DEPARTURE_DELAY > 0 as is_delayed
+                FROM flights
+                WHERE SCHEDULED_DEPARTURE IS NOT NULL 
+                AND DEPARTURE_DELAY IS NOT NULL
+            )
+            SELECT 
+                Interval,
+                ROUND(CAST(SUM(CASE WHEN is_delayed THEN 1 ELSE 0 END) AS FLOAT) * 100 / COUNT(*), 2) 
+                AS Percentage_Delayed
+            FROM time_intervals
+            GROUP BY Interval
+            ORDER BY 
+                CAST(SUBSTR(Interval, 1, 2) AS INTEGER),
+                SUBSTR(Interval, 4, 2)
+        ]
+[parameters: [{}]]
+(Background on this error at: https://sqlalche.me/e/20/cd3x)
+2025-02-18 23:18:53,445 - ERROR - Query execution error: (sqlalchemy.exc.InvalidRequestError) A value is required for bind parameter '00'
+[SQL: 
+            WITH time_intervals AS (
+                SELECT 
+                    CASE
+                        WHEN CAST(SUBSTR(SCHEDULED_DEPARTURE, 12, 2) AS INTEGER) * 60 + 
+                             CAST(SUBSTR(SCHEDULED_DEPARTURE, 15, 2) AS INTEGER) <= 30 
+                        THEN SUBSTR(SCHEDULED_DEPARTURE, 12, 2) || '?-' || 
+                             SUBSTR(SCHEDULED_DEPARTURE, 12, 2) || '?'
+                        ELSE SUBSTR(SCHEDULED_DEPARTURE, 12, 2) || '?-' || 
+                             CASE 
+                                 WHEN CAST(SUBSTR(SCHEDULED_DEPARTURE, 12, 2) AS INTEGER) = 23 
+                                 THEN '00:00' 
+                                 ELSE printf("%02d", CAST(SUBSTR(SCHEDULED_DEPARTURE, 12, 2) AS INTEGER) + 1) || '?'
+                             END
+                    END AS Interval,
+                    DEPARTURE_DELAY > 0 as is_delayed
+                FROM flights
+                WHERE SCHEDULED_DEPARTURE IS NOT NULL 
+                AND DEPARTURE_DELAY IS NOT NULL
+            )
+            SELECT 
+                Interval,
+                ROUND(CAST(SUM(CASE WHEN is_delayed THEN 1 ELSE 0 END) AS FLOAT) * 100 / COUNT(*), 2) 
+                AS Percentage_Delayed
+            FROM time_intervals
+            GROUP BY Interval
+            ORDER BY 
+                CAST(SUBSTR(Interval, 1, 2) AS INTEGER),
+                SUBSTR(Interval, 4, 2)
+        ]
+[parameters: [{}]]
+(Background on this error at: https://sqlalche.me/e/20/cd3x)
+Query: 
+            WITH time_intervals AS (
+                SELECT 
+                    CASE
+                        WHEN CAST(SUBSTR(SCHEDULED_DEPARTURE, 12, 2) AS INTEGER) * 60 + 
+                             CAST(SUBSTR(SCHEDULED_DEPARTURE, 15, 2) AS INTEGER) <= 30 
+                        THEN SUBSTR(SCHEDULED_DEPARTURE, 12, 2) || ':00-' || 
+                             SUBSTR(SCHEDULED_DEPARTURE, 12, 2) || ':30'
+                        ELSE SUBSTR(SCHEDULED_DEPARTURE, 12, 2) || ':30-' || 
+                             CASE 
+                                 WHEN CAST(SUBSTR(SCHEDULED_DEPARTURE, 12, 2) AS INTEGER) = 23 
+                                 THEN '00:00' 
+                                 ELSE printf("%02d", CAST(SUBSTR(SCHEDULED_DEPARTURE, 12, 2) AS INTEGER) + 1) || ':00'
+                             END
+                    END AS Interval,
+                    DEPARTURE_DELAY > 0 as is_delayed
+                FROM flights
+                WHERE SCHEDULED_DEPARTURE IS NOT NULL 
+                AND DEPARTURE_DELAY IS NOT NULL
+            )
+            SELECT 
+                Interval,
+                ROUND(CAST(SUM(CASE WHEN is_delayed THEN 1 ELSE 0 END) AS FLOAT) * 100 / COUNT(*), 2) 
+                AS Percentage_Delayed
+            FROM time_intervals
+            GROUP BY Interval
+            ORDER BY 
+                CAST(SUBSTR(Interval, 1, 2) AS INTEGER),
+                SUBSTR(Interval, 4, 2)
+        
+Params: {}
+2025-02-18 23:19:01,035 - INFO - Plot saved to plots/delayed_flights_by_airline.png
+2025-02-18 23:19:10,465 - INFO - Plot saved to plots/delayed_flights_by_airline.png
+2025-02-18 23:20:03,750 - ERROR - Database connection error: (sqlalchemy.exc.InvalidRequestError) A value is required for bind parameter '00'
+[SQL: 
+            WITH time_intervals AS (
+                SELECT 
+                    CASE
+                        WHEN CAST(SUBSTR(SCHEDULED_DEPARTURE, 12, 2) AS INTEGER) * 60 + 
+                             CAST(SUBSTR(SCHEDULED_DEPARTURE, 15, 2) AS INTEGER) <= 30 
+                        THEN SUBSTR(SCHEDULED_DEPARTURE, 12, 2) || '?-' || 
+                             SUBSTR(SCHEDULED_DEPARTURE, 12, 2) || '?'
+                        ELSE SUBSTR(SCHEDULED_DEPARTURE, 12, 2) || '?-' || 
+                             CASE 
+                                 WHEN CAST(SUBSTR(SCHEDULED_DEPARTURE, 12, 2) AS INTEGER) = 23 
+                                 THEN '00:00' 
+                                 ELSE printf("%02d", CAST(SUBSTR(SCHEDULED_DEPARTURE, 12, 2) AS INTEGER) + 1) || '?'
+                             END
+                    END AS Interval,
+                    DEPARTURE_DELAY > 0 as is_delayed
+                FROM flights
+                WHERE SCHEDULED_DEPARTURE IS NOT NULL 
+                AND DEPARTURE_DELAY IS NOT NULL
+            )
+            SELECT 
+                Interval,
+                ROUND(CAST(SUM(CASE WHEN is_delayed THEN 1 ELSE 0 END) AS FLOAT) * 100 / COUNT(*), 2) 
+                AS Percentage_Delayed
+            FROM time_intervals
+            GROUP BY Interval
+            ORDER BY 
+                CAST(SUBSTR(Interval, 1, 2) AS INTEGER),
+                SUBSTR(Interval, 4, 2)
+        ]
+[parameters: [{}]]
+(Background on this error at: https://sqlalche.me/e/20/cd3x)
+2025-02-18 23:20:03,750 - ERROR - Query execution error: (sqlalchemy.exc.InvalidRequestError) A value is required for bind parameter '00'
+[SQL: 
+            WITH time_intervals AS (
+                SELECT 
+                    CASE
+                        WHEN CAST(SUBSTR(SCHEDULED_DEPARTURE, 12, 2) AS INTEGER) * 60 + 
+                             CAST(SUBSTR(SCHEDULED_DEPARTURE, 15, 2) AS INTEGER) <= 30 
+                        THEN SUBSTR(SCHEDULED_DEPARTURE, 12, 2) || '?-' || 
+                             SUBSTR(SCHEDULED_DEPARTURE, 12, 2) || '?'
+                        ELSE SUBSTR(SCHEDULED_DEPARTURE, 12, 2) || '?-' || 
+                             CASE 
+                                 WHEN CAST(SUBSTR(SCHEDULED_DEPARTURE, 12, 2) AS INTEGER) = 23 
+                                 THEN '00:00' 
+                                 ELSE printf("%02d", CAST(SUBSTR(SCHEDULED_DEPARTURE, 12, 2) AS INTEGER) + 1) || '?'
+                             END
+                    END AS Interval,
+                    DEPARTURE_DELAY > 0 as is_delayed
+                FROM flights
+                WHERE SCHEDULED_DEPARTURE IS NOT NULL 
+                AND DEPARTURE_DELAY IS NOT NULL
+            )
+            SELECT 
+                Interval,
+                ROUND(CAST(SUM(CASE WHEN is_delayed THEN 1 ELSE 0 END) AS FLOAT) * 100 / COUNT(*), 2) 
+                AS Percentage_Delayed
+            FROM time_intervals
+            GROUP BY Interval
+            ORDER BY 
+                CAST(SUBSTR(Interval, 1, 2) AS INTEGER),
+                SUBSTR(Interval, 4, 2)
+        ]
+[parameters: [{}]]
+(Background on this error at: https://sqlalche.me/e/20/cd3x)
+Query: 
+            WITH time_intervals AS (
+                SELECT 
+                    CASE
+                        WHEN CAST(SUBSTR(SCHEDULED_DEPARTURE, 12, 2) AS INTEGER) * 60 + 
+                             CAST(SUBSTR(SCHEDULED_DEPARTURE, 15, 2) AS INTEGER) <= 30 
+                        THEN SUBSTR(SCHEDULED_DEPARTURE, 12, 2) || ':00-' || 
+                             SUBSTR(SCHEDULED_DEPARTURE, 12, 2) || ':30'
+                        ELSE SUBSTR(SCHEDULED_DEPARTURE, 12, 2) || ':30-' || 
+                             CASE 
+                                 WHEN CAST(SUBSTR(SCHEDULED_DEPARTURE, 12, 2) AS INTEGER) = 23 
+                                 THEN '00:00' 
+                                 ELSE printf("%02d", CAST(SUBSTR(SCHEDULED_DEPARTURE, 12, 2) AS INTEGER) + 1) || ':00'
+                             END
+                    END AS Interval,
+                    DEPARTURE_DELAY > 0 as is_delayed
+                FROM flights
+                WHERE SCHEDULED_DEPARTURE IS NOT NULL 
+                AND DEPARTURE_DELAY IS NOT NULL
+            )
+            SELECT 
+                Interval,
+                ROUND(CAST(SUM(CASE WHEN is_delayed THEN 1 ELSE 0 END) AS FLOAT) * 100 / COUNT(*), 2) 
+                AS Percentage_Delayed
+            FROM time_intervals
+            GROUP BY Interval
+            ORDER BY 
+                CAST(SUBSTR(Interval, 1, 2) AS INTEGER),
+                SUBSTR(Interval, 4, 2)
+        
+Params: {}
+2025-02-18 23:21:50,054 - ERROR - Database connection error: (sqlalchemy.exc.InvalidRequestError) A value is required for bind parameter '00'
+[SQL: 
+            WITH RECURSIVE hours(hour) AS (
+                SELECT 0
+                UNION ALL
+                SELECT hour + 1 FROM hours WHERE hour < 23
+            ),
+            time_intervals AS (
+                SELECT 
+                    hour,
+                    hour || '?-' || hour || '?' as first_half,
+                    hour || '?-' || CASE WHEN hour = 23 THEN '00:00' ELSE (hour + 1) || '?' END as second_half
+                FROM hours
+            ),
+            flight_delays AS (
+                SELECT 
+                    CAST(SUBSTR(SCHEDULED_DEPARTURE, 12, 2) AS INTEGER) as hour,
+                    CAST(SUBSTR(SCHEDULED_DEPARTURE, 15, 2) AS INTEGER) as minute,
+                    DEPARTURE_DELAY > 0 as is_delayed
+                FROM flights
+                WHERE SCHEDULED_DEPARTURE IS NOT NULL 
+                AND DEPARTURE_DELAY IS NOT NULL
+            ),
+            interval_stats AS (
+                SELECT 
+                    CASE 
+                        WHEN minute <= 30 THEN first_half
+                        ELSE second_half
+                    END as Interval,
+                    is_delayed
+                FROM flight_delays
+                JOIN time_intervals ON flight_delays.hour = time_intervals.hour
+            )
+            SELECT 
+                Interval,
+                ROUND(CAST(SUM(CASE WHEN is_delayed THEN 1 ELSE 0 END) AS FLOAT) * 100 / COUNT(*), 2) 
+                AS Percentage_Delayed
+            FROM interval_stats
+            GROUP BY Interval
+            ORDER BY 
+                CAST(SUBSTR(Interval, 1, 2) AS INTEGER),
+                SUBSTR(Interval, 4, 2)
+        ]
+[parameters: [{}]]
+(Background on this error at: https://sqlalche.me/e/20/cd3x)
+2025-02-18 23:21:50,054 - ERROR - Query execution error: (sqlalchemy.exc.InvalidRequestError) A value is required for bind parameter '00'
+[SQL: 
+            WITH RECURSIVE hours(hour) AS (
+                SELECT 0
+                UNION ALL
+                SELECT hour + 1 FROM hours WHERE hour < 23
+            ),
+            time_intervals AS (
+                SELECT 
+                    hour,
+                    hour || '?-' || hour || '?' as first_half,
+                    hour || '?-' || CASE WHEN hour = 23 THEN '00:00' ELSE (hour + 1) || '?' END as second_half
+                FROM hours
+            ),
+            flight_delays AS (
+                SELECT 
+                    CAST(SUBSTR(SCHEDULED_DEPARTURE, 12, 2) AS INTEGER) as hour,
+                    CAST(SUBSTR(SCHEDULED_DEPARTURE, 15, 2) AS INTEGER) as minute,
+                    DEPARTURE_DELAY > 0 as is_delayed
+                FROM flights
+                WHERE SCHEDULED_DEPARTURE IS NOT NULL 
+                AND DEPARTURE_DELAY IS NOT NULL
+            ),
+            interval_stats AS (
+                SELECT 
+                    CASE 
+                        WHEN minute <= 30 THEN first_half
+                        ELSE second_half
+                    END as Interval,
+                    is_delayed
+                FROM flight_delays
+                JOIN time_intervals ON flight_delays.hour = time_intervals.hour
+            )
+            SELECT 
+                Interval,
+                ROUND(CAST(SUM(CASE WHEN is_delayed THEN 1 ELSE 0 END) AS FLOAT) * 100 / COUNT(*), 2) 
+                AS Percentage_Delayed
+            FROM interval_stats
+            GROUP BY Interval
+            ORDER BY 
+                CAST(SUBSTR(Interval, 1, 2) AS INTEGER),
+                SUBSTR(Interval, 4, 2)
+        ]
+[parameters: [{}]]
+(Background on this error at: https://sqlalche.me/e/20/cd3x)
+Query: 
+            WITH RECURSIVE hours(hour) AS (
+                SELECT 0
+                UNION ALL
+                SELECT hour + 1 FROM hours WHERE hour < 23
+            ),
+            time_intervals AS (
+                SELECT 
+                    hour,
+                    hour || ':00-' || hour || ':30' as first_half,
+                    hour || ':30-' || CASE WHEN hour = 23 THEN '00:00' ELSE (hour + 1) || ':00' END as second_half
+                FROM hours
+            ),
+            flight_delays AS (
+                SELECT 
+                    CAST(SUBSTR(SCHEDULED_DEPARTURE, 12, 2) AS INTEGER) as hour,
+                    CAST(SUBSTR(SCHEDULED_DEPARTURE, 15, 2) AS INTEGER) as minute,
+                    DEPARTURE_DELAY > 0 as is_delayed
+                FROM flights
+                WHERE SCHEDULED_DEPARTURE IS NOT NULL 
+                AND DEPARTURE_DELAY IS NOT NULL
+            ),
+            interval_stats AS (
+                SELECT 
+                    CASE 
+                        WHEN minute <= 30 THEN first_half
+                        ELSE second_half
+                    END as Interval,
+                    is_delayed
+                FROM flight_delays
+                JOIN time_intervals ON flight_delays.hour = time_intervals.hour
+            )
+            SELECT 
+                Interval,
+                ROUND(CAST(SUM(CASE WHEN is_delayed THEN 1 ELSE 0 END) AS FLOAT) * 100 / COUNT(*), 2) 
+                AS Percentage_Delayed
+            FROM interval_stats
+            GROUP BY Interval
+            ORDER BY 
+                CAST(SUBSTR(Interval, 1, 2) AS INTEGER),
+                SUBSTR(Interval, 4, 2)
+        
+Params: {}
+2025-02-18 23:24:18,396 - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2025-02-18 23:24:18,410 - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2025-02-18 23:24:19,641 - INFO - Plot saved to plots/delayed_flights_by_hour.png
+2025-02-18 23:27:58,997 - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2025-02-18 23:27:59,009 - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2025-02-18 23:28:00,106 - INFO - Plot saved to plots/delayed_flights_by_hour.png
+2025-02-19 00:09:45,131 - ERROR - Database connection error: (sqlite3.OperationalError) near "as": syntax error
+[SQL: 
+    WITH RECURSIVE 
+    -- Generate all hours from 0 to 23
+    hours(hour) AS (
+        SELECT 0
+        UNION ALL
+        SELECT hour + 1 FROM hours WHERE hour < 23
+    ),
+    -- Define time slots for each hour (e.g., 00:00-00:30 and 00:30-01:00)
+    time_slots AS (
+        SELECT 
+            hour,
+            printf('%02d:00-%02d:30', hour, hour) as first_half,
+            CASE 
+                WHEN hour = 23 THEN '23:30-00:00'
+                ELSE printf('%02d:30-%02d:00', hour, hour + 1)
+            END as second_half
+        FROM hours
+    ),
+    -- Extract hour and minute from scheduled departure and flag delayed flights
+    flight_delays AS (
+        SELECT 
+            CAST(strftime('%H', SCHEDULED_DEPARTURE) AS INTEGER) as hour,
+            CAST(strftime('%M', SCHEDULED_DEPARTURE) AS INTEGER) as minute,
+            CASE WHEN DEPARTURE_DELAY > 0 THEN 1 ELSE 0 END as is_delayed
+        FROM flights
+        WHERE SCHEDULED_DEPARTURE IS NOT NULL 
+          AND DEPARTURE_DELAY IS NOT NULL
+    ),
+    -- Map each flight to its corresponding time slot
+    interval_stats AS (
+        SELECT 
+            CASE 
+                WHEN fd.minute < 30 THEN ts.first_half
+                ELSE ts.second_half
+            END as Interval,
+            fd.is_delayed
+        FROM flight_delays fd
+        JOIN time_slots ts ON fd.hour = ts.hour
+    ),
+    -- Aggregate statistics for each interval
+    aggregated_stats AS (
+        SELECT 
+            Interval,
+            SUM(is_delayed) AS Delayed_Flights,
+            COUNT(*) AS Total_Flights
+        FROM interval_stats
+        GROUP BY Interval
+    ),
+    -- Ensure all intervals are included, even if no flights exist
+    full_intervals AS (
+        SELECT 
+            CASE 
+                WHEN minute < 30 THEN first_half
+                ELSE second_half
+            END as Interval
+        FROM time_slots
+        CROSS JOIN (SELECT 0 AS minute UNION ALL SELECT 30) minutes
+    )
+    -- Final output: calculate percentage delayed for each interval
+    SELECT 
+        fi.Interval,
+        ROUND(CAST(COALESCE(as.Delayed_Flights, 0) AS FLOAT) * 100 / COALESCE(as.Total_Flights, 1), 2) AS Percentage_Delayed,
+        COALESCE(as.Total_Flights, 0) AS Total_Flights
+    FROM full_intervals fi
+    LEFT JOIN aggregated_stats as ON fi.Interval = as.Interval
+    ORDER BY 
+        CAST(substr(fi.Interval, 1, 2) AS INTEGER),
+        CAST(substr(fi.Interval, 4, 2) AS INTEGER);
+]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-02-19 00:09:45,132 - ERROR - Query execution error: (sqlite3.OperationalError) near "as": syntax error
+[SQL: 
+    WITH RECURSIVE 
+    -- Generate all hours from 0 to 23
+    hours(hour) AS (
+        SELECT 0
+        UNION ALL
+        SELECT hour + 1 FROM hours WHERE hour < 23
+    ),
+    -- Define time slots for each hour (e.g., 00:00-00:30 and 00:30-01:00)
+    time_slots AS (
+        SELECT 
+            hour,
+            printf('%02d:00-%02d:30', hour, hour) as first_half,
+            CASE 
+                WHEN hour = 23 THEN '23:30-00:00'
+                ELSE printf('%02d:30-%02d:00', hour, hour + 1)
+            END as second_half
+        FROM hours
+    ),
+    -- Extract hour and minute from scheduled departure and flag delayed flights
+    flight_delays AS (
+        SELECT 
+            CAST(strftime('%H', SCHEDULED_DEPARTURE) AS INTEGER) as hour,
+            CAST(strftime('%M', SCHEDULED_DEPARTURE) AS INTEGER) as minute,
+            CASE WHEN DEPARTURE_DELAY > 0 THEN 1 ELSE 0 END as is_delayed
+        FROM flights
+        WHERE SCHEDULED_DEPARTURE IS NOT NULL 
+          AND DEPARTURE_DELAY IS NOT NULL
+    ),
+    -- Map each flight to its corresponding time slot
+    interval_stats AS (
+        SELECT 
+            CASE 
+                WHEN fd.minute < 30 THEN ts.first_half
+                ELSE ts.second_half
+            END as Interval,
+            fd.is_delayed
+        FROM flight_delays fd
+        JOIN time_slots ts ON fd.hour = ts.hour
+    ),
+    -- Aggregate statistics for each interval
+    aggregated_stats AS (
+        SELECT 
+            Interval,
+            SUM(is_delayed) AS Delayed_Flights,
+            COUNT(*) AS Total_Flights
+        FROM interval_stats
+        GROUP BY Interval
+    ),
+    -- Ensure all intervals are included, even if no flights exist
+    full_intervals AS (
+        SELECT 
+            CASE 
+                WHEN minute < 30 THEN first_half
+                ELSE second_half
+            END as Interval
+        FROM time_slots
+        CROSS JOIN (SELECT 0 AS minute UNION ALL SELECT 30) minutes
+    )
+    -- Final output: calculate percentage delayed for each interval
+    SELECT 
+        fi.Interval,
+        ROUND(CAST(COALESCE(as.Delayed_Flights, 0) AS FLOAT) * 100 / COALESCE(as.Total_Flights, 1), 2) AS Percentage_Delayed,
+        COALESCE(as.Total_Flights, 0) AS Total_Flights
+    FROM full_intervals fi
+    LEFT JOIN aggregated_stats as ON fi.Interval = as.Interval
+    ORDER BY 
+        CAST(substr(fi.Interval, 1, 2) AS INTEGER),
+        CAST(substr(fi.Interval, 4, 2) AS INTEGER);
+]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Query: 
+    WITH RECURSIVE 
+    -- Generate all hours from 0 to 23
+    hours(hour) AS (
+        SELECT 0
+        UNION ALL
+        SELECT hour + 1 FROM hours WHERE hour < 23
+    ),
+    -- Define time slots for each hour (e.g., 00:00-00:30 and 00:30-01:00)
+    time_slots AS (
+        SELECT 
+            hour,
+            printf('%02d:00-%02d:30', hour, hour) as first_half,
+            CASE 
+                WHEN hour = 23 THEN '23:30-00:00'
+                ELSE printf('%02d:30-%02d:00', hour, hour + 1)
+            END as second_half
+        FROM hours
+    ),
+    -- Extract hour and minute from scheduled departure and flag delayed flights
+    flight_delays AS (
+        SELECT 
+            CAST(strftime('%H', SCHEDULED_DEPARTURE) AS INTEGER) as hour,
+            CAST(strftime('%M', SCHEDULED_DEPARTURE) AS INTEGER) as minute,
+            CASE WHEN DEPARTURE_DELAY > 0 THEN 1 ELSE 0 END as is_delayed
+        FROM flights
+        WHERE SCHEDULED_DEPARTURE IS NOT NULL 
+          AND DEPARTURE_DELAY IS NOT NULL
+    ),
+    -- Map each flight to its corresponding time slot
+    interval_stats AS (
+        SELECT 
+            CASE 
+                WHEN fd.minute < 30 THEN ts.first_half
+                ELSE ts.second_half
+            END as Interval,
+            fd.is_delayed
+        FROM flight_delays fd
+        JOIN time_slots ts ON fd.hour = ts.hour
+    ),
+    -- Aggregate statistics for each interval
+    aggregated_stats AS (
+        SELECT 
+            Interval,
+            SUM(is_delayed) AS Delayed_Flights,
+            COUNT(*) AS Total_Flights
+        FROM interval_stats
+        GROUP BY Interval
+    ),
+    -- Ensure all intervals are included, even if no flights exist
+    full_intervals AS (
+        SELECT 
+            CASE 
+                WHEN minute < 30 THEN first_half
+                ELSE second_half
+            END as Interval
+        FROM time_slots
+        CROSS JOIN (SELECT 0 AS minute UNION ALL SELECT 30) minutes
+    )
+    -- Final output: calculate percentage delayed for each interval
+    SELECT 
+        fi.Interval,
+        ROUND(CAST(COALESCE(as.Delayed_Flights, 0) AS FLOAT) * 100 / COALESCE(as.Total_Flights, 1), 2) AS Percentage_Delayed,
+        COALESCE(as.Total_Flights, 0) AS Total_Flights
+    FROM full_intervals fi
+    LEFT JOIN aggregated_stats as ON fi.Interval = as.Interval
+    ORDER BY 
+        CAST(substr(fi.Interval, 1, 2) AS INTEGER),
+        CAST(substr(fi.Interval, 4, 2) AS INTEGER);
+
+Params: {}
+2025-02-19 00:12:09,553 - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2025-02-19 00:12:09,572 - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2025-02-19 00:12:12,502 - INFO - Plot saved to plots/delayed_flights_by_hour.png
+2025-02-19 00:12:36,272 - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2025-02-19 00:12:36,292 - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2025-02-19 00:12:39,633 - INFO - Plot saved to plots/delayed_flights_by_hour.png
+2025-02-19 00:17:10,675 - INFO - Plot saved to plots/delayed_flights_by_hour.png
+2025-02-19 00:30:32,812 - ERROR - Error creating plot: Could not interpret value `Airline` for `x`. An entry with this name does not appear in `data`.
+2025-02-19 00:32:30,128 - ERROR - Application error: type object 'FlightAnalyzer' has no attribute 'plot_delayed_flights_by_hour'
+2025-02-19 00:32:56,744 - ERROR - Error creating plot: Could not interpret value `Percentage_Delayed` for `y`. An entry with this name does not appear in `data`.
+2025-02-19 00:33:07,980 - ERROR - Error creating plot: Could not interpret value `Percentage_Delayed` for `y`. An entry with this name does not appear in `data`.
+2025-02-19 00:34:40,381 - INFO - DataFrame structure:
+2025-02-19 00:34:40,381 - INFO -   ScheduledHour  TotalFlights  DelayedFlights  Percentage_Delayed
+0            00          2372             814               34.32
+1            01          1239             425               34.30
+2            02           112              49               43.75
+3            03            66              38               57.58
+4            04            70              24               34.29
+2025-02-19 00:34:40,398 - INFO - Renamed DataFrame structure:
+2025-02-19 00:34:40,398 - INFO -   Interval  TotalFlights  DelayedFlights  Percentage_Delayed
+0       00          2372             814               34.32
+1       01          1239             425               34.30
+2       02           112              49               43.75
+3       03            66              38               57.58
+4       04            70              24               34.29
+2025-02-19 00:34:40,442 - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2025-02-19 00:34:40,455 - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2025-02-19 00:34:42,288 - INFO - Plot saved to plots/delayed_flights_by_hour.png
+2025-02-19 00:36:04,605 - ERROR - Application error: 
+2025-02-19 00:42:33,336 - ERROR - Application error: type object 'FlightAnalyzer' has no attribute 'plot_delayed_flights_by_route'
+2025-02-19 00:52:43,999 - ERROR - Application error: 'FlightData' object has no attribute 'execute_query'
+2025-02-19 00:55:02,404 - INFO - Heatmap saved to plots/delayed_flights_by_route_heatmap.png
+2025-02-19 00:57:14,458 - ERROR - Application error: type object 'FlightAnalyzer' has no attribute 'plot_delayed_flights_by_route'
+2025-02-19 00:58:46,029 - INFO - Heatmap saved to plots/delayed_flights_by_route_heatmap.png
+2025-02-19 01:21:52,080 - ERROR - Application error: unterminated triple-quoted string literal (detected at line 172) (data.py, line 172)
+2025-02-19 01:22:08,667 - ERROR - Application error: unterminated triple-quoted string literal (detected at line 172) (data.py, line 172)
+2025-02-19 01:23:00,378 - INFO - Heatmap saved to plots/delayed_flights_by_route_heatmap.png
+2025-02-19 01:23:13,637 - INFO - Heatmap saved to plots/delayed_flights_by_route_heatmap.png
+2025-02-19 01:30:51,540 - ERROR - Database connection error: (sqlite3.OperationalError) no such column: IATA
+[SQL: 
+            SELECT IATA, Latitude, Longitude FROM airports;
+        ]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-02-19 01:30:51,541 - ERROR - Query execution error: (sqlite3.OperationalError) no such column: IATA
+[SQL: 
+            SELECT IATA, Latitude, Longitude FROM airports;
+        ]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Query: 
+            SELECT IATA, Latitude, Longitude FROM airports;
+        
+Params: {}
+2025-02-19 01:30:51,543 - ERROR - Error creating geographic map: 'IATA'
+2025-02-19 01:36:05,937 - WARNING - Invalid coordinates for airport ECP: LATITUDE=, LONGITUDE=
+2025-02-19 01:36:05,937 - WARNING - Invalid coordinates for airport PBG: LATITUDE=, LONGITUDE=
+2025-02-19 01:36:05,938 - WARNING - Invalid coordinates for airport UST: LATITUDE=, LONGITUDE=
+2025-02-19 01:36:06,094 - ERROR - Error creating geographic map: The geopandas.dataset has been deprecated and was removed in GeoPandas 1.0. You can get the original 'naturalearth_lowres' data from https://www.naturalearthdata.com/downloads/110m-cultural-vectors/.
+2025-02-19 01:46:04,547 - WARNING - Invalid coordinates for airport ECP: LATITUDE=, LONGITUDE=
+2025-02-19 01:46:04,547 - WARNING - Invalid coordinates for airport PBG: LATITUDE=, LONGITUDE=
+2025-02-19 01:46:04,548 - WARNING - Invalid coordinates for airport UST: LATITUDE=, LONGITUDE=
+2025-02-19 01:46:04,702 - ERROR - Error creating geographic map: The geopandas.dataset has been deprecated and was removed in GeoPandas 1.0. You can get the original 'naturalearth_lowres' data from https://www.naturalearthdata.com/downloads/110m-cultural-vectors/.
+2025-02-19 01:47:49,917 - INFO - Heatmap saved to plots/delayed_flights_by_route_heatmap.png
+2025-02-19 01:50:15,066 - ERROR - Error creating geographic map: The geopandas.dataset has been deprecated and was removed in GeoPandas 1.0. You can get the original 'naturalearth_lowres' data from https://www.naturalearthdata.com/downloads/110m-cultural-vectors/.
+2025-02-19 01:54:29,593 - INFO - Airport coordinates DataFrame:
+2025-02-19 01:54:29,594 - INFO -   IATA  Latitude  Longitude
+0  ABE  40.65236  -75.44040
+1  ABI  32.41132  -99.68190
+2  ABQ  35.04022 -106.60919
+3  ABR  45.44906  -98.42183
+4  ABY  31.53552  -84.19447
+2025-02-19 01:54:30,458 - ERROR - Error creating geographic map: data/naturalearth_lowres.shp: No such file or directory
+2025-02-19 19:33:25,509 - INFO - Airport coordinates DataFrame:
+2025-02-19 19:33:25,509 - INFO -   IATA  Latitude  Longitude
+0  ABE  40.65236  -75.44040
+1  ABI  32.41132  -99.68190
+2  ABQ  35.04022 -106.60919
+3  ABR  45.44906  -98.42183
+4  ABY  31.53552  -84.19447
+2025-02-19 19:33:26,236 - ERROR - Error creating geographic map: data/naturalearth_lowres.shp: No such file or directory
+2025-02-19 19:35:41,599 - INFO - Airport coordinates DataFrame:
+2025-02-19 19:35:41,600 - INFO -   IATA  Latitude  Longitude
+0  ABE  40.65236  -75.44040
+1  ABI  32.41132  -99.68190
+2  ABQ  35.04022 -106.60919
+3  ABR  45.44906  -98.42183
+4  ABY  31.53552  -84.19447
+2025-02-19 19:35:41,784 - ERROR - Error creating geographic map: Unable to open data/naturalearth_lowres.shx or data/naturalearth_lowres.SHX. Set SHAPE_RESTORE_SHX config option to YES to restore or create it.
+2025-02-19 19:39:29,105 - ERROR - Error creating geographic map: The geopandas.dataset has been deprecated and was removed in GeoPandas 1.0. You can get the original 'naturalearth_lowres' data from https://www.naturalearthdata.com/downloads/110m-cultural-vectors/.
+2025-02-19 19:42:29,068 - ERROR - Error creating geographic map: The geopandas.dataset has been deprecated and was removed in GeoPandas 1.0. You can get the original 'naturalearth_lowres' data from https://www.naturalearthdata.com/downloads/110m-cultural-vectors/.
+2025-02-19 19:47:20,413 - ERROR - Error creating geographic map: name 'os' is not defined
+2025-02-19 19:47:49,115 - ERROR - Error creating geographic map: name 'requests' is not defined
+2025-02-19 19:48:33,979 - ERROR - Error creating geographic map: name 'zipfile' is not defined
+2025-02-19 19:49:02,144 - ERROR - Error creating geographic map: File is not a zip file
+2025-02-19 19:53:35,094 - ERROR - Failed to download or extract shapefile: 406 Client Error: Not Acceptable for url: https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/cultural/ne_110m_admin_0_countries.zip
+2025-02-19 19:57:17,789 - INFO - Successfully loaded shapefile from data/naturalearth_lowres/ne_10m_admin_0_countries.shp
+2025-02-19 19:57:26,786 - INFO - Map saved to plots/delayed_flights_by_route_map.png
+2025-02-19 20:00:41,387 - INFO - Successfully loaded shapefile from data/naturalearth_lowres/ne_10m_admin_0_countries.shp
+2025-02-19 20:00:50,442 - INFO - Map saved to plots/delayed_flights_by_route_map.png
+2025-02-19 20:03:54,578 - INFO - Successfully loaded shapefile from data/naturalearth_lowres/ne_10m_admin_0_countries.shp
+2025-02-19 20:04:06,567 - INFO - Map saved to plots/delayed_flights_by_route_map.png
+2025-02-19 20:08:40,236 - INFO - Successfully loaded shapefile from data/naturalearth_lowres/ne_10m_admin_0_countries.shp
+2025-02-19 20:08:50,630 - INFO - Map saved to plots/delayed_flights_by_route_map.png
+2025-02-19 20:12:31,191 - ERROR - Error creating geographic map: name 'gdf_grouped' is not defined
+2025-02-19 20:12:53,226 - INFO - Successfully loaded shapefile from data/naturalearth_lowres/ne_10m_admin_0_countries.shp
+2025-02-19 20:13:05,106 - INFO - Map saved to plots/delayed_flights_by_route_map.png
+2025-02-19 20:16:57,867 - INFO - Successfully loaded shapefile from data/naturalearth_lowres/ne_10m_admin_0_countries.shp
+2025-02-19 20:17:24,090 - INFO - Maps saved to plots/delayed_flights_by_delay_range.png
+2025-02-19 20:19:51,308 - INFO - Successfully loaded shapefile from data/naturalearth_lowres/ne_10m_admin_0_countries.shp
+2025-02-19 20:20:15,594 - INFO - Maps saved to plots/delayed_flights_by_delay_range.png
+2025-02-19 20:23:05,778 - INFO - Successfully loaded shapefile from data/naturalearth_lowres/ne_10m_admin_0_countries.shp
+2025-02-19 20:23:25,717 - INFO - Maps saved to plots/delayed_flights_by_delay_range.png
+2025-02-19 20:23:58,143 - INFO - Successfully loaded shapefile from data/naturalearth_lowres/ne_10m_admin_0_countries.shp
+2025-02-19 20:24:22,588 - INFO - Maps saved to plots/delayed_flights_by_delay_range.png
+2025-02-19 22:17:11,087 - ERROR - Application error: No module named 'sqlalchemy'
+2025-02-19 22:18:44,720 - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2025-02-19 22:18:44,725 - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2025-02-19 22:18:45,139 - INFO - Plot saved to plots/delayed_flights_by_hour.png
+2025-02-19 22:18:51,508 - INFO - Heatmap saved to plots/delayed_flights_by_route_heatmap.png
+2025-02-19 22:19:01,375 - INFO - Successfully loaded shapefile from data/naturalearth_lowres/ne_10m_admin_0_countries.shp
+2025-02-19 22:19:03,831 - INFO - Maps saved to plots/delayed_flights_by_delay_range.png
+2025-02-19 22:27:29,067 - INFO - Heatmap saved to plots/delayed_flights_by_route_heatmap.png

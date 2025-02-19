@@ -27,7 +27,3 @@ Before running the application, ensure you have the following installed:
 - SQLite database with flight data (e.g., `flights.sqlite3`)
 - Required Python packages  (see requirements.txt
 
-
----
-
-# sky-sql
